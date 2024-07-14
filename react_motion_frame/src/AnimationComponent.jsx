@@ -1,14 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-
+import Typical from 'react-typical';
+import { TypeAnimation } from 'react-type-animation';
+import { useSpring, animated } from 'react-spring';
 const AnimationComponent = () => {
   const [ref, inView] = useInView({
     triggerOnce: false,
     threshold: 0.5,
   });
-
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
   return (
+    <>
     <motion.div
       ref={ref}
       initial={{
@@ -44,6 +47,24 @@ const AnimationComponent = () => {
     >
       Hello, Framer Motion!
     </motion.div>
+    <Typical
+    steps={['Hello', 1000, 'Hello world!', 500]}
+    loop={Infinity}
+    wrapper="p"
+  />
+   <TypeAnimation
+    sequence={[
+      'Developer Cambodia', 4000,  // Increased duration to 2000ms
+      'Web Developer', 2000,       // Increased duration to 1000ms
+      'Web Design', 2000           // Increased duration to 1000ms
+    ]}
+    wrapper="span"
+    cursor={true}
+    repeat={Infinity}
+    style={{ fontSize: '2em', display: 'inline-block',color:'blue' }}
+  />
+  <animated.div style={props}>Hello, I fade in!</animated.div>
+    </>
   );
 };
 
